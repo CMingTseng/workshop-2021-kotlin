@@ -1,4 +1,9 @@
 buildscript {
+    ext {
+        kotlin_version = "1.5.10"
+        spring_framework_boot_version = "2.5.1"
+        spring_dependency_management_version = "1.0.11.RELEASE"
+    }
     repositories {
         gradlePluginPortal()
         mavenCentral()
@@ -6,6 +11,7 @@ buildscript {
     }
 
     dependencies {
+        classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
     }
 }
 
@@ -14,5 +20,21 @@ subprojects {
         mavenCentral()
         gradlePluginPortal()
         google()
+    }
+
+    tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
+        kotlinOptions {
+            jvmTarget = "1.8"
+            freeCompilerArgs += ['-Xjsr305=strict']
+        }
+    }
+
+    tasks.withType(JavaCompile).all {
+        sourceCompatibility JavaVersion.VERSION_11.toString()
+        targetCompatibility JavaVersion.VERSION_11.toString()
+    }
+
+    tasks.withType(Test) {
+        useJUnitPlatform()
     }
 }

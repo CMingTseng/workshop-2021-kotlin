@@ -1,14 +1,12 @@
 plugins {
-    id 'org.springframework.boot' version "2.5.1"
-    id 'io.spring.dependency-management' version "1.0.11.RELEASE"
-    id 'org.jetbrains.kotlin.jvm' version "1.5.10"
-    id 'org.jetbrains.kotlin.plugin.spring' version "1.5.10"
+    id 'org.springframework.boot' version "$spring_framework_boot_version"
+    id 'io.spring.dependency-management' version "$spring_dependency_management_version"
+    id 'org.jetbrains.kotlin.jvm'
+    id 'org.jetbrains.kotlin.plugin.spring' version "${kotlin_version}"
 }
 
 group = "tw.b2e"
 version = "0.0.1-SNAPSHOT"
-java.sourceCompatibility = JavaVersion.VERSION_11
-java.targetCompatibility = JavaVersion.VERSION_11
 
 dependencies {
     implementation("org.springframework.boot:spring-boot-starter-webflux")
@@ -21,13 +19,3 @@ dependencies {
     testImplementation("io.projectreactor:reactor-test")
 }
 
-tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-    kotlinOptions {
-        jvmTarget = "1.8"
-        freeCompilerArgs += ['-Xjsr305=strict']
-    }
-}
-
-tasks.withType( Test) {
-    useJUnitPlatform()
-}
